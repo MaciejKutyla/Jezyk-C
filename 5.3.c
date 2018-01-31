@@ -109,3 +109,4 @@ void MnozenieDwochMacierzy (int macierz[2][2][2])
     WypisanieMacierzy(macierzPomnozona);
 }
 
+
