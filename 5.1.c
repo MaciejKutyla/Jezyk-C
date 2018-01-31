@@ -4,16 +4,16 @@
 
 int PorownanieDwoch (int godzina1[3], int godzina2[3]);
 void KontrolaBledow (int godzina [3]);
-int TablicaGodzin (int godzina[3]);
+void WpisywanieGodziny (int godzina[3]);
 
 int main (void)
 {
     int godzina1[3], godzina2[3];
-    TablicaGodzin (godzina1);
-    TablicaGodzin (godzina2);
+    WpisywanieGodziny (godzina1);
+    WpisywanieGodziny (godzina2);
 
-    int x = PorownanieDwoch(godzina1, godzina2);
-    switch (x)
+    int przypadki = PorownanieDwoch(godzina1, godzina2);
+    switch (przypadki)
     {
         case (0):
             printf("Godziny sa rowne \n");
@@ -29,7 +29,7 @@ int main (void)
     return 0;
 }
 
-int TablicaGodzin (int godzina[3])
+void WpisywanieGodziny (int godzina[3])
 {
     printf("Wpisz godzine, minute i sekunde\n");
     printf ("godziny = ");
@@ -54,7 +54,6 @@ int TablicaGodzin (int godzina[3])
         printf ("Zla godzina, wartosc musi zawierac sie miedzy 0 i 60, wpisz jeszcze raz \n");
         scanf ("%d", &godzina[2]);
     }
-    return godzina[3];
 }
 
 

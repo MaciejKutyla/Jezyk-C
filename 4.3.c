@@ -14,9 +14,7 @@ void rozwiazanie_zagadki(int kula[9])
             printf("Kulka nr 2 jest najciezsza \n");
         else
             printf("Kulka nr 3 jest najciezsza \n");
-
     }
-
     else if(kula[3]+kula[4]+kula[5]==4)
     {
         if(kula[3]==2)
@@ -26,7 +24,6 @@ void rozwiazanie_zagadki(int kula[9])
         else
             printf("Kulka nr 6 jest najciezsza \n");
     }
-
     else
     {
         if(kula[6]==2)
@@ -40,12 +37,9 @@ void rozwiazanie_zagadki(int kula[9])
 
 int main(void)
 {
-
     srand(time(NULL));
-    int kula[9], CiezszaKula;
-    CiezszaKula=rand()%9;
-    for (int i=0; i<9; i++)
-        kula[i]=1;
+    int kula[] = {1,1,1,1,1,1,1,1,1};
+    int CiezszaKula=rand()%sizeof(kula);
     kula[CiezszaKula]=2;
     rozwiazanie_zagadki(kula);
 

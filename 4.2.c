@@ -21,18 +21,19 @@ int main(void)
 
 int zakres (int PodanaLiczba)
 {
-    if (PodanaLiczba<0)
+    int zakresOd = 0;
+    int zakresDo = 10;
+    if (PodanaLiczba<zakresOd)
     {
         PodanaLiczba=-PodanaLiczba;
     }
-    if (PodanaLiczba==0)
+    if (PodanaLiczba==zakresOd)
     {
         PodanaLiczba =+ 1;
     }
-
-    if (PodanaLiczba>10)
+    if (PodanaLiczba>zakresDo)
     {
-        PodanaLiczba=PodanaLiczba % 10+1;
+        PodanaLiczba=PodanaLiczba % zakresDo+1;
     }
 
     return PodanaLiczba;
@@ -77,5 +78,4 @@ void zgadywanie_liczby (int liczba)
         printf("Podana liczba to 1\n");
     }
     else printf("Podana liczba to 2\n");
-
 }
