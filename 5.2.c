@@ -49,3 +49,4 @@ int liczeniewyznacznika(int macierz[3][3])
     return wyznacznik;
 }
 
+
