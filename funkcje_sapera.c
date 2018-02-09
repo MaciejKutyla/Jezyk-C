@@ -40,7 +40,7 @@ int pobierz_inta_od_gracza(char tekst[])
     return wartosc;
 }
 
-int pobierz_wymiar_tablicy(char tekst[])
+int pobierz_liczbe_wieksza_od_zera(char tekst[])
 {
    int wartosc;
    do
@@ -48,6 +48,17 @@ int pobierz_wymiar_tablicy(char tekst[])
       wartosc = pobierz_inta_od_gracza(tekst);
    }while (wartosc <= 0);
    return wartosc;
+}
+
+int pobierz_liczbe_mniejsza_Lub_rowna_zadanej_i_wieksza_lub_rowna_zadanej(char tekst[], int liczba_dolna, int liczba)
+{
+	int wartosc = 0;
+	do
+	{
+		wartosc = pobierz_liczbe_wieksza_od_zera(tekst);
+	}while(wartosc > liczba || wartosc < liczba_dolna);
+	
+	return wartosc;
 }
 
 int pobierz_bool_od_gracza(char tekst[])
@@ -66,8 +77,8 @@ void losuj_miny(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc], 
    {
       while(1)
       {
-         int a = rand() % (wysokosc - 2) + 1;
-         int b = rand() % (wysokosc - 2) + 1;
+         int a = (rand() % (wysokosc - 4)) + 2;
+         int b = (rand() % (wysokosc - 4)) + 2;
          if(tablica[a][b].wartosc != MINA)
          {
             tablica[a][b].wartosc = MINA;
@@ -79,28 +90,28 @@ void losuj_miny(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc], 
 
 int licz_w_otoczeniu(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc], int wys, int szer, int co)
 {
-   int suma_min = 0;
+   int suma = 0;
    
-   for (int i = -1; i<2; i+=2)
+   for (int i = -1; i < 2; i += 2)
    {
       if(tablica[wys][szer+i].wartosc == co)
       {
-         suma_min++;
+         suma++;
       }
       if(tablica[wys+i][szer].wartosc == co)
       {
-         suma_min++;
+         suma++;
       }
       if(tablica[wys+i][szer+i].wartosc == co)
       {
-         suma_min++;
+         suma++;
       }
       if(tablica[wys+i][szer-i].wartosc == co)
       {
-         suma_min++;
+         suma++;
       }
    }
-   return suma_min;
+   return suma;
 }
 
 void oblicz_wartosci_tabeli(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc])
