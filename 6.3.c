@@ -1,18 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define ROZMIAR 10
-int Losowanie_Tablicy(int rozmiar, int tablica[ROZMIAR]);
-void Wypisanie_Tablicy (int tablica[ROZMIAR], int rozmiar);
-double Liczenie_Sredniej(int tablica[ROZMIAR], int rozmiar);
-int Sortowanie_Tablicy(int tablica[ROZMIAR], int rozmiar);
-double Liczenie_Mediany(int tablica[ROZMIAR], int rozmiar);
-int Max_Min_element_Tablicy(int tablica[ROZMIAR], int rozmiar);
+
+int Losowanie_Tablicy(int rozmiar_tablicy, int tablica[rozmiar_tablicy]);
+void Wypisanie_Tablicy (int rozmiar_tablicy, int tablica[rozmiar_tablicy]);
+double Liczenie_Sredniej(int rozmiar_tablicy, int tablica[rozmiar_tablicy]);
+int Sortowanie_Tablicy(int rozmiar_tablicy, int tablica[rozmiar_tablicy]);
+double Liczenie_Mediany(int rozmiar_tablicy, int tablica[rozmiar_tablicy]);
+int Max_Min_element_Tablicy(int rozmiar_tablicy, int tablica[rozmiar_tablicy]);
 
 int main(void)
 {
-    int tablica[ROZMIAR];
-    int rozmiar= sizeof(tablica)/4;
+    int rozmiar_tablicy;
+    printf("Podaj na ilu elementowej tablicy chcesz operowac:\n");
+    scanf("%d", &rozmiar_tablicy);
+    while (rozmiar_tablicy<1)
+    {
+        printf("Podano zly rozmiar tablicy. Podaj go jeszcze raz: \n");
+        scanf("%d", &rozmiar_tablicy);
+    }
+    int tablica[rozmiar_tablicy];
 
     srand(time(NULL));
 
@@ -24,7 +31,7 @@ int main(void)
     printf("[5]Max/Min element tablicy \n");
     printf("[6]Wyjdz z programu \n");
 
-    while (1>0)
+    while (1)
     {
         int przypadek;
         scanf("%d", &przypadek);
@@ -32,23 +39,23 @@ int main(void)
         switch (przypadek)
         {
             case 1:
-                Losowanie_Tablicy(rozmiar, tablica);
+                Losowanie_Tablicy(rozmiar_tablicy, tablica);
                 printf("Wylosowales tablice. Co chcesz zrobic dalej? \n");
                 break;
             case 2:
-                Wypisanie_Tablicy(tablica, rozmiar);
+                Wypisanie_Tablicy(rozmiar_tablicy, tablica);
                 printf("Co chcesz zrobic dalej? \n");
                 break;
             case 3:
-                Liczenie_Sredniej(tablica, rozmiar);
+                Liczenie_Sredniej(rozmiar_tablicy, tablica);
                 printf("Co chcesz zrobic dalej? \n");
                 break;
             case 4:
-                Liczenie_Mediany(tablica, rozmiar);
+                Liczenie_Mediany(rozmiar_tablicy, tablica);
                 printf("Co chcesz zrobic dalej? \n");
                 break;
             case 5:
-                Max_Min_element_Tablicy(tablica, rozmiar);
+                Max_Min_element_Tablicy(rozmiar_tablicy, tablica);
                 printf("Co chcesz zrobic dalej? \n");
                 break;
             case 6:
@@ -61,43 +68,42 @@ int main(void)
     return 0;
 }
 
-int Losowanie_Tablicy(int rozmiar, int tablica[ROZMIAR])
+int Losowanie_Tablicy(int rozmiar_tablicy, int tablica[rozmiar_tablicy])
 {
-    for (int i=0; i<rozmiar; i++)
+    for (int i=0; i<rozmiar_tablicy; i++)
     {
-        tablica[i]=rand()%ROZMIAR;
+        tablica[i]=rand()%rozmiar_tablicy;
     }
-    return tablica[ROZMIAR];
+    return tablica[rozmiar_tablicy];
 }
 
-void Wypisanie_Tablicy(int tablica[ROZMIAR], int rozmiar)
-
+void Wypisanie_Tablicy(int rozmiar_tablicy, int tablica[rozmiar_tablicy])
 {
-    Sortowanie_Tablicy(tablica, rozmiar);
+    Sortowanie_Tablicy(rozmiar_tablicy, tablica);
     printf("Twoja tablica to: \n");
-    for(int i=0; i<rozmiar; i++)
+    for(int i=0; i<rozmiar_tablicy; i++)
     {
         printf("%d \n", tablica[i]);
     }
 }
 
-double Liczenie_Sredniej(int tablica[ROZMIAR], int rozmiar)
+double Liczenie_Sredniej(int rozmiar_tablicy, int tablica[rozmiar_tablicy])
 {
     double suma=0;
-    for(int i=0; i<rozmiar; i++)
+    for(int i=0; i<rozmiar_tablicy; i++)
     {
         suma+=tablica[i];
     }
-    double srednia=suma/rozmiar;
+    double srednia=suma/rozmiar_tablicy;
     printf("Srednia liczb to: %lf \n", srednia);
     return srednia;
 }
 
-int Sortowanie_Tablicy(int tablica[ROZMIAR], int rozmiar)
+int Sortowanie_Tablicy(int rozmiar_tablicy, int tablica[rozmiar_tablicy])
 {
-    for (int i=0; i<(rozmiar +1); i++)
+    for (int i=0; i<(rozmiar_tablicy +1); i++)
     {
-       for (int k=0; k<(rozmiar +1); k++)
+       for (int k=0; k<(rozmiar_tablicy +1); k++)
        {
            if ( tablica[i]<tablica[k])
            {
@@ -107,22 +113,31 @@ int Sortowanie_Tablicy(int tablica[ROZMIAR], int rozmiar)
            }
        }
     }
-    return tablica[ROZMIAR];
+    return tablica[rozmiar_tablicy];
 }
 
-double Liczenie_Mediany(int tablica[ROZMIAR], int rozmiar)
+double Liczenie_Mediany(int rozmiar_tablicy, int tablica[rozmiar_tablicy])
 {
-    Sortowanie_Tablicy(tablica, rozmiar);
-    double mediana=(tablica[4]+tablica[5])/2;
+    Sortowanie_Tablicy(rozmiar_tablicy, tablica);
+    double mediana;
+    if (rozmiar_tablicy%2==0)
+    {
+        mediana = (tablica[rozmiar_tablicy/2]+tablica[rozmiar_tablicy/2-1]);
+        mediana = mediana/2;
+    }
+    else
+    {
+        mediana = (tablica[(rozmiar_tablicy-1)/2]);
+    }
     printf("Mediana to: %lf \n", mediana);
     return mediana;
 }
 
-int Max_Min_element_Tablicy(int tablica[ROZMIAR], int rozmiar)
+int Max_Min_element_Tablicy(int rozmiar_tablicy, int tablica[rozmiar_tablicy])
 {
-    Sortowanie_Tablicy(tablica, rozmiar);
+    Sortowanie_Tablicy(rozmiar_tablicy, tablica);
     int min=tablica[0];
-    int max=tablica[9];
+    int max=tablica[(rozmiar_tablicy-1)];
     printf("Wartosc min to: %d, a wartosc max to: %d\n", min, max);
 }
 

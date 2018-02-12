@@ -7,10 +7,10 @@
 
 #define BUFSIZE 1024
 
-void wyswietlanie(int tablica[], int rozmiar);
-void sortowanie(int tablica[], int rozmiar);
+void wyswietlanie_tablicy(int rozmiar, int tablica[rozmiar]);
+void sortowanie_tablicy(int rozmiar, int tablica[rozmiar]);
 
-void wyswietlanie(int tablica[], int rozmiar)
+void wyswietlanie_tablicy(int rozmiar, int tablica[rozmiar])
 {
     for(int i=0; i<rozmiar; i++)
     {
@@ -18,10 +18,8 @@ void wyswietlanie(int tablica[], int rozmiar)
     }
 }
 
-
-void sortowanie(int tablica[], int rozmiar)
+void sortowanie_tablicy(int rozmiar, int tablica[rozmiar])
 {
-
     for (int i=0; i<rozmiar; i++)
     {
         for (int j=0; j<(rozmiar-1); j++)
@@ -38,19 +36,7 @@ void sortowanie(int tablica[], int rozmiar)
 
 int main (int argc, char **argv)
 {
-    if(argc != 2)
-    {
-        printf("Nie podano argumentow");
-        return 1;
-    }
-    else
-    {
-        printf("Swietnie! Podales 2 argumenty \n");
-    }
-
-    char *plik;
-    plik = argv[1];
-
+    const char* plik = argv[1];
     FILE *f1 = fopen (plik, "r+w");
     if(f1 == NULL)
     {
@@ -62,17 +48,27 @@ int main (int argc, char **argv)
             return 1;
         }
     }
-    int rozmiar =0;
+    if(argc != 2)
+    {
+        printf("Nie podano argumentow");
+        return 1;
+    }
+    else
+    {
+        printf("Swietnie! Podales 2 argumenty \n");
+    }
+
     char bufor[BUFSIZE];
     int tablica[BUFSIZE];
+    int rozmiar = 0;
     while(fscanf( f1 , "%s", &bufor) != EOF)
     {
         tablica[rozmiar] = strtol(bufor, NULL, 10);
         rozmiar++;
     }
 
-    sortowanie(tablica, rozmiar);
-    wyswietlanie(tablica, rozmiar);
+    sortowanie_tablicy(rozmiar, tablica);
+    wyswietlanie_tablicy(rozmiar, tablica);
 
     fclose(f1);
 

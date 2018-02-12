@@ -1,28 +1,24 @@
-//Kutyla Maciej AGH Grupa 5 Czwartek 8:00 nr indeksu 297242
-// Zajecia 4 zad 2
 #include <stdio.h>
-
-void zgadywanie_liczby();
-int zakres();
 
 int main(void)
 {
-    int PodanaLiczba, liczba;
+    int zakresOd = 0;
+    int zakresDo = 10;
+    int PodanaLiczba;
     printf("Podaj liczbe z zakresu [1, 10]\n");
     scanf("%d", &PodanaLiczba);
     if (PodanaLiczba>10 || PodanaLiczba<1)
     {
         printf("Podales liczbe spoza zakresu. Naprawilismy to! \n");
     }
-    liczba = zakres (PodanaLiczba);
-    zgadywanie_liczby (liczba);
+    PodanaLiczba = zakres (PodanaLiczba, zakresOd, zakresDo);
+    zgadywanie_liczby (PodanaLiczba);
+
     return 0;
 }
 
-int zakres (int PodanaLiczba)
+int zakres (int PodanaLiczba, int zakresOd, int zakresDo)
 {
-    int zakresOd = 0;
-    int zakresDo = 10;
     if (PodanaLiczba<zakresOd)
     {
         PodanaLiczba=-PodanaLiczba;
@@ -39,15 +35,15 @@ int zakres (int PodanaLiczba)
     return PodanaLiczba;
 }
 
-void zgadywanie_liczby (int liczba)
+void zgadywanie_liczby (int PodanaLiczba)
 {
-    if (liczba>=6)
+    if (PodanaLiczba>=6)
     {
-        if (liczba>=8)
+        if (PodanaLiczba>=8)
         {
-            if (liczba>=9)
+            if (PodanaLiczba>=9)
             {
-                if (liczba==9)
+                if (PodanaLiczba==9)
                 {
                     printf("Podana liczba to 9\n");
                 }
@@ -55,17 +51,17 @@ void zgadywanie_liczby (int liczba)
             }
             else printf("Podana liczba to 8\n");
         }
-        else if (liczba==6)
+        else if (PodanaLiczba==6)
         {
             printf("Podana liczba to 6\n");
         }
         else printf("Podana liczba to 7\n");
     }
-    else if (liczba>=3)
+    else if (PodanaLiczba>=3)
     {
-        if (liczba>=4)
+        if (PodanaLiczba>=4)
         {
-            if (liczba==4)
+            if (PodanaLiczba==4)
             {
                 printf("Podana liczba to 4\n");
             }
@@ -73,7 +69,7 @@ void zgadywanie_liczby (int liczba)
         }
         else printf("Podana liczba to 3\n");
     }
-    else if (liczba==1)
+    else if (PodanaLiczba==1)
     {
         printf("Podana liczba to 1\n");
     }

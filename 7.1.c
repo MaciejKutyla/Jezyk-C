@@ -1,22 +1,37 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 double liczenie_sredniej(int *poczatek, int *koniec);
+int losowanie_tablicy(int rozmiar, int tablica[rozmiar]);
+void wypisanie_tablicy(int rozmiar, int tablica[rozmiar]);
 
 int main(void)
-
 {
-    double srednia_wazona;
-    int tablica[5] = {5,2,4,1,2};
-    int *poczatek = &tablica;
-    int *koniec = &tablica[5];
+    srand(time(NULL));
 
-    srednia_wazona = liczenie_sredniej(poczatek, koniec);
-    printf("srednia wazona: %g\n",srednia_wazona);
+    printf("Podaj rozmiar tablicy:  ");
+    int rozmiar;
+    scanf("%d", &rozmiar);
+    while (rozmiar<1)
+    {
+        printf("Podales za maly rozmiar, zrob to jeszcze raz!\n");
+        scanf("%d", &rozmiar);
+    }
+    int tablica[rozmiar];
+
+    losowanie_tablicy(rozmiar, tablica);
+    wypisanie_tablicy(rozmiar, tablica);
+
+    int *poczatek = &tablica;
+    int *koniec = &tablica[rozmiar];
+    double srednia_wazona = liczenie_sredniej(poczatek, koniec);
+    printf("Srednia wazona: %g\n", srednia_wazona);
+
     return 0;
 }
 
 double liczenie_sredniej(int *poczatek, int *koniec)
-
 {
     double srednia = 0.0;
     double suma_liczb = 0.0;
@@ -30,4 +45,23 @@ double liczenie_sredniej(int *poczatek, int *koniec)
     }
     srednia = suma_liczb/suma_wag;
     return srednia;
+}
+
+int losowanie_tablicy(int rozmiar, int tablica[rozmiar])
+{
+    for (int i=0; i<rozmiar; i++)
+    {
+        tablica[i]=rand()%10;
+    }
+    return tablica[rozmiar];
+}
+
+void wypisanie_tablicy(int rozmiar, int tablica[rozmiar])
+{
+    printf("Twoja tablica to: \n");
+    for(int i=0; i<rozmiar; i++)
+    {
+        printf("%d  ", tablica[i]);
+    }
+    printf("\n");
 }

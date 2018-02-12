@@ -2,14 +2,12 @@
 #include <stdarg.h>
 #include <string.h>
 
-void    printf_ze_scanfem (char* tekst, ...)
-
+void printf_ze_scanfem (const char* tekst, ...)
 {
 	int dl_txt = strlen(tekst);
-    int *argument;
+    const int *argument;
 	va_list argumenty;
 	va_start(argumenty, tekst);
-
 
 	for (int i=0; i< dl_txt; i++)
 	{

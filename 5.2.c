@@ -1,40 +1,42 @@
-//Kutyla Maciej AGH Grupa 5 Czwartek 8:00 nr indeksu 297242
-// Zajecia 5 zad 2
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-int liczeniewyznacznika(int macierz[3][3]);
-void LosowanieMacierzy(int macierz [3][3]);
-void WyswietlanieMacierzy(int macierz[3][3]);
+int LiczenieWyznacznika(int wiersze, int kolumny, int macierz[wiersze][kolumny]);
+void LosowanieMacierzy(int wiersze, int kolumny, int macierz[wiersze][kolumny]);
+void WyswietlanieMacierzy(int wiersze, int kolumny, int macierz[wiersze][kolumny]);
 
 int main(void)
 {
     srand(time(NULL));
-    int macierz[3][3];
-    LosowanieMacierzy(macierz);
-    WyswietlanieMacierzy(macierz);
-    liczeniewyznacznika(macierz);
+    int wiersze = 3;
+    int kolumny = 3;
+    int macierz[wiersze][kolumny];
+    LosowanieMacierzy(wiersze, kolumny, macierz);
+    WyswietlanieMacierzy(wiersze, kolumny, macierz);
+    LiczenieWyznacznika(wiersze, kolumny, macierz);
 
     return 0;
 }
 
-void LosowanieMacierzy(int macierz [3][3])
+void LosowanieMacierzy(int wiersze, int kolumny, int macierz[wiersze][kolumny])
 {
-    for (int i=0; i<3; i++)
+    for (int i=0; i<kolumny; i++)
     {
-        for (int j=0; j<3; j++)
+        for (int j=0; j<wiersze; j++)
         {
-            int x=rand()%2+1;
+            int x=rand()%11;
             macierz[i][j]=x;
         }
     }
 }
-void WyswietlanieMacierzy(int macierz[3][3])
+
+void WyswietlanieMacierzy(int wiersze, int kolumny, int macierz[wiersze][kolumny])
 {
     printf("Losowa macierz to: \n");
-    for (int k=0; k<3; k++)
+    for (int k=0; k<kolumny; k++)
     {
-        for (int l=0;l<3; l++)
+        for (int l=0;l<wiersze; l++)
         {
             printf(" %d ", macierz[k][l]);
         }
@@ -42,11 +44,10 @@ void WyswietlanieMacierzy(int macierz[3][3])
     }
 }
 
-int liczeniewyznacznika(int macierz[3][3])
+int LiczenieWyznacznika(int wiersze, int kolumny, int macierz[wiersze][kolumny])
 {
     int wyznacznik = macierz[0][0]*macierz[1][1]*macierz[2][2]+macierz[1][0]*macierz[2][1]*macierz[0][2]+macierz[0][1]*macierz[1][2]*macierz[2][0]-macierz[0][2]*macierz[1][1]*macierz[2][0]-macierz[2][1]*macierz[1][2]*macierz[0][0]-macierz[1][0]*macierz[0][1]*macierz[2][2];
     printf("Wyzncznik macierzy to: %d", wyznacznik);
     return wyznacznik;
 }
-
 

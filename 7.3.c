@@ -2,31 +2,65 @@
 #include <stdlib.h>
 #include <time.h>
 
-void nowa_tablicaA(int  tablicaA[10]);
-void nowa_tablicaB(int tablicaA[10], int *tablicaB[10]);
-void sortowanie(int *tablicaB[10]);
+void nowa_tablicaA(int rozmiar, int tablicaA[rozmiar]);
+void nowa_tablicaB(int rozmiar, int tablicaA[rozmiar], int *tablicaB[rozmiar]);
+void sortowanie(int rozmiar, int *tablicaB[rozmiar]);
 
-void nowa_tablicaA(int tablicaA[10])
+int main(void)
 {
-    for( int i=0; i<10; i++)
+    srand(time(NULL));
+
+    printf("Podaj rozmiar tablicy:  ");
+    int rozmiar;
+    scanf("%d", &rozmiar);
+    while (rozmiar<1)
+    {
+        printf("Podales za maly rozmiar, zrob to jeszcze raz!\n");
+        scanf("%d", &rozmiar);
+    }
+    int tablicaA[rozmiar];
+    int *tablicaB[rozmiar];
+
+    nowa_tablicaA(rozmiar, tablicaA);
+    nowa_tablicaB(rozmiar, tablicaA, tablicaB);
+    sortowanie(rozmiar, tablicaB);
+
+    printf("Nieposorotwana tablica A: \n");
+	for (int i = 0; i<rozmiar; i++)
+	{
+		printf(" %d ", tablicaA[i]);
+	}
+
+	printf("\nPosortowana tablica A:\n");
+	for (int i = 0; i<rozmiar; i++)
+	{
+		printf(" %d ", *tablicaB[i]);
+	}
+
+    return 0;
+}
+
+void nowa_tablicaA(int rozmiar, int tablicaA[rozmiar])
+{
+    for( int i=0; i<rozmiar; i++)
     {
         tablicaA[i] = rand()%10;
     }
 }
 
-void nowa_tablicaB(int tablicaA[10], int *tablicaB[10])
+void nowa_tablicaB(int rozmiar, int tablicaA[rozmiar], int *tablicaB[rozmiar])
 {
-    for (int i=0; i<10; i++)
+    for (int i=0; i<rozmiar; i++)
     {
         tablicaB[i]=&tablicaA[i];
     }
 }
 
-void sortowanie(int *tablicaB[10])
+void sortowanie(int rozmiar, int *tablicaB[rozmiar])
 {
-    for (int i=0; i<10; i++)
+    for (int i=0; i<rozmiar; i++)
     {
-        for (int j=0; j<9; j++)
+        for (int j=0; j<(rozmiar-1); j++)
         {
             if(*tablicaB[j]>*tablicaB[j+1])
             {
@@ -36,30 +70,4 @@ void sortowanie(int *tablicaB[10])
             }
         }
     }
-}
-
-int main(void)
-{
-    int tablicaA[10];
-    int *tablicaB[10];
-    srand(time(NULL));
-    nowa_tablicaA(tablicaA);
-    nowa_tablicaB(tablicaA, tablicaB);
-    sortowanie(tablicaB);
-
-    printf("Nieposorotwana tablica A: \n");
-	for (int i = 0; i<10; i++)
-	{
-		printf(" %d ", tablicaA[i]);
-	}
-
-	printf("\n Posortowana tablica A:\n");
-
-	for (int i = 0; i<10; i++)
-	{
-		printf(" %d ", *tablicaB[i]);
-	}
-
-    return 0;
-
 }

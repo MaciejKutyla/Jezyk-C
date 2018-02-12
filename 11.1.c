@@ -1,44 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define PLIK "plik.txt"
 
-int generowanie_liczb(int liczby[], int n);
-void wypisanie_liczb(int liczby[],int n);
+void  generowanie_liczb(int ilosc, FILE* plik);
 
-int main(void)
+int main (int argc, char **argv)
 {
-    FILE *wsk;
-    printf("Podaj ile liczb chcesz wygenerowac:");
-    int ilosc;
-    scanf("%d", &ilosc);
-    int liczby[ilosc];
     srand(time(NULL));
-    generowanie_liczb(liczby, ilosc);
-    wypisanie_liczb(liczby, ilosc);
-    wsk = fopen(PLIK, "w");
-    for (int i=0; i<ilosc;i++)
-        fprintf(wsk, "%d", liczby[i]);
+
+    if(argc != 3)
+    {
+        printf("Brak argumentow");
+        return 1;
+    }
+    const int ilosc = *argv[1];
+    if (ilosc<1)
+    {
+        printf("Podano zly rozmiar tablicy");
+        return -1;
+    }
+    const char plik = *argv[2];
+    if (plik == NULL)
+    {
+        printf("Zgubiles plik!");
+        return -1;
+    }
+    FILE *wsk = fopen (plik, "w");
+    generowanie_liczb(ilosc, plik);
     fclose(wsk);
-    getch();
-    return 0;
+
+    return(0);
 }
 
-int generowanie_liczb(int liczby[], int n)
+void generowanie_liczb(int ilosc, FILE* plik)
 {
-    for (int i=0; i<n; i++)
+    for (int i=0; i < ilosc; i++)
     {
-        int x=rand()%10;
-        liczby[i]=x;
+        fprintf(plik, " %d ", rand()%20);
     }
-    return liczby[10];
 }
 
-void wypisanie_liczb(int liczby[],int n)
-{
-    printf("Oto twoje liczby: \n");
-    for (int i=0; i<n; i++)
-    {
-        printf("%d  ", liczby[i]);
-    }
-}

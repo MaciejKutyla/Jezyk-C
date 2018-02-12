@@ -1,5 +1,3 @@
-//Kutyla Maciej AGH Grupa 5 Czwartek 8:00 nr indeksu 297242
-// Zajecia 4 zad 3
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -39,8 +37,8 @@ int main(void)
 {
     srand(time(NULL));
     int kula[] = {1,1,1,1,1,1,1,1,1};
-    int CiezszaKula=rand()%sizeof(kula);
-    kula[CiezszaKula]=2;
+    int losowa_ciezsza_kula=rand()%(sizeof(kula) / sizeof(kula[0]));
+    kula[losowa_ciezsza_kula]=2;
     rozwiazanie_zagadki(kula);
 
     return 0;
