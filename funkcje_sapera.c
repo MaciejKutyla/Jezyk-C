@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
+#include <stdbool.h>
 
-enum kolory{BLUE = 34, RED = 31};
+enum kolory{NIEBIESKI = 34, CZERWONY = 31};
 
 enum wartosci_tablicy{MINA = -1, POLE = 0};
 
 enum wyswietlanie_chars{POLE_C = ' ', MINA_C = 241, FLAGA_C = '?'};
 
 typedef struct Komorka{
-   int wartosc, czy_gracz_byl, ograniczenie, flaga;
+   int wartosc;
+   bool czy_gracz_byl, ograniczenie, flaga;
 }pole;
 
 
@@ -19,19 +20,19 @@ void czysc_bufor(void)
    while(getchar()!='\n');
 }
 
-void Reset_colors()
+void resetuj_kolory()
 {
-  printf("%c[%dm",0x1B,0);
+  printf("%c[%dm", 0x1B, 0);
 }
 
-int pobierz_inta_od_gracza(char tekst[])
+int pobierz_inta_od_gracza(const char tekst[])
 {
     int ok = 0;
     int wartosc = 0;
     do
     {
         printf("%s", tekst);
-        if(scanf ("%d", &wartosc) == 1)
+        if(scanf("%d", &wartosc) == 1)
         {
             ok = 1;
         }
@@ -40,7 +41,7 @@ int pobierz_inta_od_gracza(char tekst[])
     return wartosc;
 }
 
-int pobierz_liczbe_wieksza_od_zera(char tekst[])
+int pobierz_liczbe_wieksza_od_zera(const char tekst[])
 {
    int wartosc;
    do
@@ -50,7 +51,7 @@ int pobierz_liczbe_wieksza_od_zera(char tekst[])
    return wartosc;
 }
 
-int pobierz_liczbe_mniejsza_Lub_rowna_zadanej_i_wieksza_lub_rowna_zadanej(char tekst[], int liczba_dolna, int liczba)
+int pobierz_liczbe_mniejsza_Lub_rowna_zadanej_i_wieksza_lub_rowna_zadanej(const char tekst[], int liczba_dolna, int liczba)
 {
 	int wartosc = 0;
 	do
@@ -61,14 +62,14 @@ int pobierz_liczbe_mniejsza_Lub_rowna_zadanej_i_wieksza_lub_rowna_zadanej(char t
 	return wartosc;
 }
 
-int pobierz_bool_od_gracza(char tekst[])
+bool pobierz_bool_od_gracza(const char tekst[])
 {
-   int bool;
+   bool czy_prawda;
    do
    {
-      bool = pobierz_inta_od_gracza(tekst);
-   }while(bool != 0 && bool !=1);
-   return bool;
+      czy_prawda = pobierz_inta_od_gracza(tekst);
+   }while(czy_prawda != 0 && czy_prawda !=1);
+   return czy_prawda;
 }
 
 void losuj_miny(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc], int ilosc_min)
@@ -88,25 +89,25 @@ void losuj_miny(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc], 
    }
 }
 
-int licz_w_otoczeniu(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc], int wys, int szer, int co)
+int licz_w_otoczeniu(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc], int wys, int szer, int wartosc)
 {
    int suma = 0;
    
    for (int i = -1; i < 2; i += 2)
    {
-      if(tablica[wys][szer+i].wartosc == co)
+      if(tablica[wys][szer+i].wartosc == wartosc)
       {
          suma++;
       }
-      if(tablica[wys+i][szer].wartosc == co)
+      if(tablica[wys+i][szer].wartosc == wartosc)
       {
          suma++;
       }
-      if(tablica[wys+i][szer+i].wartosc == co)
+      if(tablica[wys+i][szer+i].wartosc == wartosc)
       {
          suma++;
       }
-      if(tablica[wys+i][szer-i].wartosc == co)
+      if(tablica[wys+i][szer-i].wartosc == wartosc)
       {
          suma++;
       }
@@ -172,21 +173,21 @@ void rysuj_tablice(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc
                case MINA:
                   printf("%c[%dm", 0x1B, 7);
                   printf("|  %c  |", MINA_C);
-                  Reset_colors();
+                  resetuj_kolory();
                   break;                 
                default:
-                  printf("%c[%dm", 0x1B, RED);
+                  printf("%c[%dm", 0x1B, CZERWONY);
                   printf("|  %d  |", tablica[i][j].wartosc);
-                  Reset_colors();
+                  resetuj_kolory();
             }
          }
          else
          {
             if(tablica[i][j].flaga == 1)
             {
-               printf("%c[%dm", 0x1B, BLUE);
+               printf("%c[%dm", 0x1B, NIEBIESKI);
                printf("|  %c  |", FLAGA_C);
-               Reset_colors();
+               resetuj_kolory();
             }
             else
             {

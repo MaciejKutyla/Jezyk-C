@@ -3,7 +3,7 @@
 
 void czysc_bufor(void);
 
-void Reset_colors();
+void resetuj_kolory();
 
 int pobierz_inta_od_gracza(char tekst[]);
 int pobierz_liczbe_wieksza_od_zera(char tekst[]);
@@ -17,6 +17,7 @@ int licz_w_otoczeniu(int wysokosc, int szerokosc, pole tablica[wysokosc][szeroko
 void oblicz_wartosci_tabeli(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc]);
 
 void czysc_tablice(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc]);
+
 void rysuj_tablice(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc]);
 
 void odkrywanie_do_okola(int wysokosc, int szerokosc, pole tablica[wysokosc][szerokosc], int wys, int szer);
